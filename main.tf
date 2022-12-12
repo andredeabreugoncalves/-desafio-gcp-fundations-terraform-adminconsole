@@ -1,19 +1,19 @@
 provider "googleworkspace" {
   credentials             = "${file("serviceaccount.yaml")}"
   customer_id             = "C04fayzre"
-  impersonated_user_email = "andre@andreag.com.br"
+  impersonated_estatisiticas_email = "andre@andreag.com.br"
   oauth_scopes = [
-    "https://www.googleapis.com/auth/admin.directory.user",
-    "https://www.googleapis.com/auth/admin.directory.userschema",
+    "https://www.googleapis.com/auth/admin.directory.estatisiticas",
+    "https://www.googleapis.com/auth/admin.directory.estatisiticasschema",
     "https://www.googleapis.com/auth/admin.directory.group",	
     # include scopes as needed
   ]
 }
 
-resource "googleworkspace_group" "devops" {
-  email       = "devops@andreag.com.br"
-  name        = "devops"
-  description = "Grupo devops"
+resource "googleworkspace_group" "estatisiticas" {
+  email       = "estatisiticas@andreag.com.br"
+  name        = "estatisiticas"
+  description = "Grupo estatisiticas"
 
 
   timeouts {
@@ -22,20 +22,20 @@ resource "googleworkspace_group" "devops" {
   }
 }
 
-resource "googleworkspace_user" "user" {
-  primary_email = "user@andreag.com.br"
+resource "googleworkspace_estatisiticas" "estatisiticas" {
+  primary_email = "estatisiticas@andreag.com.br"
   password      = "34819d7beeabb9260a5c854bc85b3e44"
   hash_function = "MD5"
 
   name {
-    family_name = "user"
+    family_name = "estatisiticas"
     given_name  = "Ninguem"
   }
 }
 
 resource "googleworkspace_group_member" "manager" {
-  group_id = googleworkspace_group.devops.id
-  email    = googleworkspace_user.user.primary_email
+  group_id = googleworkspace_group.estatisiticas.id
+  email    = googleworkspace_estatisiticas.estatisiticas.primary_email
 
   role = "MANAGER"
 }
